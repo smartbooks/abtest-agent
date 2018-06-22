@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+
+    <package name="pkg-server" extends="struts-default">
+        <action name="index">
+            <result>/index.jsp</result>
+        </action>
+    </package>
+
+    <package name="pkg-server-json" extends="json-default">
+        <action name="hi" class="com.suiyueyule.abtest.action.AbForwardAction" method="hi">
+            <result name="success" type="json">
+                <param name="root">jsonData</param>
+            </result>
+        </action>
+        <action name="query" class="com.suiyueyule.abtest.action.AbForwardAction" method="query">
+            <result name="success" type="json">
+                <param name="root">jsonData</param>
+            </result>
+        </action>
+    </package>
+
+</struts>
