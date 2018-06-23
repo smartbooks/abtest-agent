@@ -12,3 +12,8 @@ curl http://localhost:8080/abtest-agent/ab/hi
 req:curl http://localhost:8080/abtest-agent/ab/query?k=1&v=1,2,3&k=3,6,9&p=open
 rep:{"data":{"p":["open"],"v":["1,2,3"],"k":["1","3,6,9"]}}
 ```
+
+## Referer
+- http://uxren.cn/?p=58841
+- Google:https://ai.google/research/pubs/pub36500
+- CSDN:https://www.csdn.net/article/2015-01-09/2823499
