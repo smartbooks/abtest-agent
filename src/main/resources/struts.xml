@@ -23,6 +23,11 @@
                 <param name="root">jsonData</param>
             </result>
         </action>
+        <action name="exp" class="com.suiyueyule.abtest.action.AbForwardAction" method="exp">
+            <result name="success" type="json">
+                <param name="root">jsonData</param>
+            </result>
+        </action>
     </package>
 
 </struts>
