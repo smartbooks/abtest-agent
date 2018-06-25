@@ -1,16 +1,16 @@
 !!com.suiyueyule.abtest.config.ConfigManage
 abTestConfig:
   layers:
-    AD:
+    RECOMMEND:
       bucketList:
       - bucketList: !!set {0: null}
-        paramList: {AD_2008_01: '000000', AD_2008_02: '000001'}
+        paramList: {RECOMMEND_2008_01: '000000', RECOMMEND_2008_02: '000001'}
         plan: '2008'
       - bucketList: !!set {1: null}
-        paramList: {AD_2009_02: '000001', AD_2009_01: '000000'}
+        paramList: {RECOMMEND_2009_02: '000001', RECOMMEND_2009_01: '000000'}
         plan: '2009'
       bucketSize: 2
-      factor: AD
+      factor: RECOMMEND
     UI:
       bucketList:
       - bucketList: !!set {0: null, 1: null, 2: null}

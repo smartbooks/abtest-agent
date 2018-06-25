@@ -24,20 +24,7 @@ public class AbForwardAction extends ActionSupport {
     }
 
     private Map<String, Object> jsonData;
-
-    public String query() {
-
-        jsonData = new HashMap<>();
-
-        HttpServletRequest request = ServletActionContext.getRequest();
-
-        Map<String, String[]> param = request.getParameterMap();
-
-        jsonData.put("data", param);
-
-        return Action.SUCCESS;
-    }
-
+    
     public String hi() {
 
         jsonData = new HashMap<>();

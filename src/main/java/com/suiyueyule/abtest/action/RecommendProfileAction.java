@@ -31,7 +31,7 @@ public class RecommendProfileAction extends ActionSupport {
      * 请求参数推荐用户键名
      */
     private final static String regUidKey = "reg_uid";
-    
+
     /**
      * 请求参数返回条数键名
      */
@@ -70,8 +70,11 @@ public class RecommendProfileAction extends ActionSupport {
                 //ab测试分流洗牌
                 ABTestFactor.ABTestResult layerShuffle = ABTestManager.instance().run((Long) param.get(regUidKey), layoutName);
 
-                //与请求分数map合并
-                param.putAll(layerShuffle.getParam());
+                //没有匹配的分流策略
+                if (null != layerShuffle) {
+                    //与请求分数map合并
+                    param.putAll(layerShuffle.getParam());
+                }
 
                 //实例化模型服务接口
                 BaseService modelService = new DefaultServiceImpl();
@@ -83,9 +86,14 @@ public class RecommendProfileAction extends ActionSupport {
                 Map<String, Object> resultMap = new HashMap<>();
 
                 //设置ab测试穿透的层和落入的桶，以及模型名称和版本信息
-                resultMap.put("ab_layer", layerShuffle.getLayer());
-                resultMap.put("ab_bucket", layerShuffle.getBucket());
-                resultMap.put("ab_plan", layerShuffle.getPlan());
+
+                //没有匹配的分流策略
+                if (null != layerShuffle) {
+                    resultMap.put("ab_layer", layerShuffle.getLayer());
+                    resultMap.put("ab_bucket", layerShuffle.getBucket());
+                    resultMap.put("ab_plan", layerShuffle.getPlan());
+                }
+
                 resultMap.put("ab_model_id", modelService.getModelId());
                 resultMap.put("ab_model_ver", modelService.getModelVersion());
                 resultMap.put("ab_model_tag", modelService.getModelTag());
@@ -108,7 +116,6 @@ public class RecommendProfileAction extends ActionSupport {
             jsonData.put("time", System.currentTimeMillis());
 
         } catch (Exception e) {
-            e.printStackTrace();
 
             logger.error(e);
 

@@ -19,6 +19,10 @@ public class ConfigAutoLoadServlet extends HttpServlet {
         //加载配置文件
         ConfigManage configManage = ConfigManage.load();
 
+        if (null == configManage) {
+            throw new ServletException(String.format("config file %s load failure.", ConfigManage.filename));
+        }
+
         //刷新分流配置
         ABTestManager.instance().refreshConfiguration(configManage.abTestConfig);
 
