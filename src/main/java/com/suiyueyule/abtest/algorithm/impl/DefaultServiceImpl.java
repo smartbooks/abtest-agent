@@ -1,10 +1,14 @@
 package com.suiyueyule.abtest.algorithm.impl;
 
 import com.suiyueyule.abtest.algorithm.BaseService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
 public class DefaultServiceImpl implements BaseService {
+
+    private final static Logger logger = LogManager.getLogger(DefaultServiceImpl.class);
 
     @Override
     public String getModelId() {
