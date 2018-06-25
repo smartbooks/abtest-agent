@@ -2,6 +2,8 @@ package com.suiyueyule.abtest.action;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import com.suiyueyule.abtest.algorithm.BaseService;
+import com.suiyueyule.abtest.algorithm.impl.DefaultServiceImpl;
 import com.suiyueyule.abtest.core.*;
 import org.apache.struts2.ServletActionContext;
 
@@ -73,6 +75,41 @@ public class AbForwardAction extends ActionSupport {
         jsonData.put("layer_2", layer2);
         jsonData.put("layer_3", layer3);
 
+        //模型内聚封装
+        {
+            //模型服务
+            BaseService modelService = new DefaultServiceImpl();
+
+            modelService.init();
+            //modelService.destroy();
+
+            Map<String, Object> requestMap = new HashMap<>();
+
+            //请求参数
+            requestMap.put("uid", paramUid);
+
+            //参数做一个合并
+            requestMap.putAll(layer1.getParam());
+
+            //获取推荐结果
+            Object result = modelService.predict(requestMap);
+
+            //BODY封装
+            {
+                Map<String, Object> bodyMap = new HashMap<>();
+
+                bodyMap.put("ab_layer", layer1.getLayer());
+                bodyMap.put("ab_bucket", layer1.getBucket());
+                bodyMap.put("ab_plan", layer1.getPlan());
+                bodyMap.put("ab_model_id", modelService.getModelId());
+                bodyMap.put("ab_model_ver", modelService.getModelVersion());
+                bodyMap.put("ab_model_tag", modelService.getModelTag());
+                bodyMap.put("item_list", result);
+
+                jsonData.put("data", bodyMap);
+            }
+        }
+
         jsonData.put("status", 0);
         jsonData.put("code", "0");
         jsonData.put("msg", "success");
@@ -82,7 +119,7 @@ public class AbForwardAction extends ActionSupport {
         return Action.SUCCESS;
     }
 
-    private ExperimentConfiguration genericExperimentConfiguration() {
+    public ExperimentConfiguration genericExperimentConfiguration() {
         ExperimentConfiguration conf = new ExperimentConfiguration();
 
         {
