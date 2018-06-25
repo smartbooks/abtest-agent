@@ -3,6 +3,10 @@
 
 ## build
 ```
+git clone https://github.com/smartbooks/abtest-agent
+cd ./abtest-agent
+export RECOMMEND_CONF_DIR=`pwd`
+
 mvn clean package jetty:run
 mvn org.mortbay.jetty:maven-jetty-plugin:run
 

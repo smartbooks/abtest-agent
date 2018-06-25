@@ -1,0 +1,33 @@
+!!com.suiyueyule.abtest.config.ConfigManage
+abTestConfig:
+  layers:
+    AD:
+      bucketList:
+      - bucketList: !!set {0: null}
+        paramList: {AD_2008_01: '000000', AD_2008_02: '000001'}
+        plan: '2008'
+      - bucketList: !!set {1: null}
+        paramList: {AD_2009_02: '000001', AD_2009_01: '000000'}
+        plan: '2009'
+      bucketSize: 2
+      factor: AD
+    UI:
+      bucketList:
+      - bucketList: !!set {0: null, 1: null, 2: null}
+        paramList: {UI_2018_02: '000001', UI_2018_01: '000000'}
+        plan: '2018'
+      - bucketList: !!set {3: null, 4: null}
+        paramList: {UI_2017_02: '000001', UI_2017_01: '000000'}
+        plan: '2017'
+      bucketSize: 5
+      factor: UI
+    QUERY:
+      bucketList:
+      - bucketList: !!set {0: null, 1: null}
+        paramList: {QUERY_2010_02: '000001', QUERY_2010_01: '000000'}
+        plan: '2010'
+      - bucketList: !!set {2: null}
+        paramList: {QUERY_2019_01: '000000', QUERY_2019_02: '000001'}
+        plan: '2019'
+      bucketSize: 3
+      factor: QUERY

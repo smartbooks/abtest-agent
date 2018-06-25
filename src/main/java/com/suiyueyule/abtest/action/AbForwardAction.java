@@ -119,7 +119,7 @@ public class AbForwardAction extends ActionSupport {
         return Action.SUCCESS;
     }
 
-    public ExperimentConfiguration genericExperimentConfiguration() {
+    public static ExperimentConfiguration genericExperimentConfiguration() {
         ExperimentConfiguration conf = new ExperimentConfiguration();
 
         {
