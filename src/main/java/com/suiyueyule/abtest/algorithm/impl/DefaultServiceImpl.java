@@ -1,6 +1,7 @@
 package com.suiyueyule.abtest.algorithm.impl;
 
 import com.suiyueyule.abtest.algorithm.BaseService;
+import com.suiyueyule.abtest.util.JsonUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,6 +33,8 @@ public class DefaultServiceImpl implements BaseService {
 
     @Override
     public Object predict(Map<String, Object> param) {
+
+        logger.debug(String.format("推测测试,请求参数:%s", JsonUtils.toJson(param, false)));
 
         return new Long[]{100L, 200L, 300L, 400L, 500L};
     }

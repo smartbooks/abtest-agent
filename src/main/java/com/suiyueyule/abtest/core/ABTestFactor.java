@@ -1,16 +1,22 @@
 package com.suiyueyule.abtest.core;
 
+import com.suiyueyule.abtest.util.JsonUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class ABTestFactor {
 
+    private final static Logger logger = LogManager.getLogger(ABTestFactor.class);
     private ExperimentConfiguration conf = new ExperimentConfiguration();
     private final static byte[] lock = new byte[0];
 
     public void refreshConfiguration(ExperimentConfiguration configuration) {
         synchronized (lock) {
             conf = configuration;
+            logger.debug(String.format("配置刷新成功:%s", JsonUtils.toJson(conf, false)));
         }
     }
 

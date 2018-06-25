@@ -14,19 +14,19 @@ public class ConfigWatch {
 
     private final static Logger logger = LogManager.getLogger(ConfigWatch.class);
     private FileAlterationMonitor monitor;
-    private long interval = 5;
+    private long interval = 5L;
 
     public ConfigWatch() {
         FileAlterationObserver observer = new FileAlterationObserver(ConfigManage.RECOMMEND_CONF_DIR);
         observer.addListener(new ConfigListener());
-        monitor = new FileAlterationMonitor(TimeUnit.SECONDS.toMillis(interval), observer);
+        monitor = new FileAlterationMonitor(TimeUnit.SECONDS.toSeconds(interval), observer);
     }
 
     public void start() {
         try {
             monitor.start();
         } catch (Exception e) {
-            logger.error(e);
+            logger.error("配置文件监控器启动失败", e);
         }
     }
 
@@ -34,7 +34,7 @@ public class ConfigWatch {
         try {
             monitor.stop();
         } catch (Exception e) {
-            logger.error(e);
+            logger.error("配置文件监控器停止失败", e);
         }
     }
 }

@@ -26,6 +26,7 @@ public class FileUtils {
 
     public static void writeFile(File file, String text) {
         try {
+
             if (file.exists()) {
                 file.delete();
             }

@@ -35,7 +35,7 @@ public class ConfigManage {
         if (null == RECOMMEND_CONF_DIR || RECOMMEND_CONF_DIR.equals(StringUtils.STRING_EMPTY)) {
             RECOMMEND_CONF_DIR = System.getProperty("user.dir");
         }
-        filename = String.format("%s/default.yaml", RECOMMEND_CONF_DIR);
+        filename = String.format("%sdefault.yaml", RECOMMEND_CONF_DIR);
     }
 
     /**
@@ -50,7 +50,7 @@ public class ConfigManage {
         try {
             Instance = yaml.load(new FileInputStream(file));
         } catch (FileNotFoundException e) {
-            logger.error(e);
+            logger.error(String.format("序列化配置文件失败", file), e);
         }
 
         return Instance;
@@ -69,7 +69,7 @@ public class ConfigManage {
         try {
             Instance = yaml.load(new FileInputStream(confFile));
         } catch (FileNotFoundException e) {
-            logger.error(e);
+            logger.error(String.format("序列化配置文件失败", confFile), e);
         }
 
         return Instance;
@@ -91,7 +91,7 @@ public class ConfigManage {
     public synchronized static void save() {
         save(Instance);
     }
-    
+
     /**
      * AB分流测试配置
      */
