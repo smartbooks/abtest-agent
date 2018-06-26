@@ -4,24 +4,26 @@ abTestConfig:
     RECOMMEND_ITEM:
       bucketList:
       - bucketList: !!set {0: null}
-        paramList: {RECOMMEND_2008_01: '000000'}
-        plan: '201806A'
-        classTag: 'com.suiyueyule.abtest.algorithm.impl.CFRecommendItemServiceImpl'
+        classTag: com.suiyueyule.abtest.algorithm.impl.DefaultRecommendItemServiceImpl
+        paramList: {PAMA: '000000', PAMB: '000001'}
+        plan: 201806A
       - bucketList: !!set {1: null}
-        paramList: {RECOMMEND_2009_02: '000001'}
-        plan: '201806B'
-        classTag: 'com.suiyueyule.abtest.algorithm.impl.DefaultRecommendItemServiceImpl'
+        classTag: com.suiyueyule.abtest.algorithm.impl.CFRecommendItemServiceImpl
+        paramList: {PAMA: '000000', PAMB: '000001'}
+        plan: 201806B
       bucketSize: 2
       factor: RECOMMEND_ITEM
     RECOMMEND_ITEM_RELEVANT:
       bucketList:
       - bucketList: !!set {0: null}
-        paramList: {UI_2018_02: '000001'}
-        plan: '201806A'
-        classTag: 'com.suiyueyule.abtest.algorithm.impl.CFRecommendItemRelevantServiceImpl'
+        classTag: com.suiyueyule.abtest.algorithm.impl.DefaultRecommendItemRelevantServiceImpl
+        paramList: {PAMA: '000000', PAMB: '000001'}
+        plan: 201806A
       - bucketList: !!set {1: null}
-        paramList: {UI_2017_02: '000001'}
-        plan: '201806B'
-        classTag: 'com.suiyueyule.abtest.algorithm.impl.DefaultRecommendItemRelevantServiceImpl'
+        classTag: com.suiyueyule.abtest.algorithm.impl.CFRecommendItemRelevantServiceImpl
+        paramList: {PAMA: '000000', PAMB: '000001'}
+        plan: 201806B
       bucketSize: 2
       factor: RECOMMEND_ITEM_RELEVANT
+recommendRedisConfig: {auth: '', connectionTimeout: 1200, dbIndex: 0, host: localhost,
+  port: 6379, useSSL: false}

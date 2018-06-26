@@ -55,9 +55,12 @@ public class CFRecommendItemRelevantServiceImpl implements BaseService {
             int pageSize = (Integer) param.get(RecommendItemRelevantAction.pageSizeKey);
 
             //modelTag:modelId:modelVer:uid:itemId
+            //RECOMMEND_ITEM_RELEVANT_XGTJ_CF:38B3EFF8BAF56627478EC76A704E9B52:0.1:21:100
             String redisKey = String.format("%s:%s:%s:%s:%s", getModelTag(), getModelId(), getModelVersion(), regUid, itemUid);
 
             jedis = JedisUtils.getJedis();
+
+            logger.debug(String.format("获取缓存:%s", redisKey));
 
             //redis zrange默认返回顺序从小到大,推荐物品偏好入库redis时已将评分倒置存储,即从大到小由5->1转1-5
             Iterator<String> it = jedis.zrange(redisKey, 0, pageSize).iterator();
