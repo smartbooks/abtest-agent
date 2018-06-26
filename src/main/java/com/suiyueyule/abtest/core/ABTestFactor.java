@@ -52,6 +52,7 @@ public class ABTestFactor {
         abTestResult.layer = layerKey;
         abTestResult.plan = bucket.plan;
         abTestResult.param = bucket.paramList;
+        abTestResult.classTag = bucket.classTag;
 
         return abTestResult;
     }
@@ -63,6 +64,15 @@ public class ABTestFactor {
         private String plan;
         private String layer;
         private Long bucket;
+        private String classTag;
+
+        public String getClassTag() {
+            return classTag;
+        }
+
+        public void setClassTag(String classTag) {
+            this.classTag = classTag;
+        }
 
         public Map<String, Object> getParam() {
             return param;

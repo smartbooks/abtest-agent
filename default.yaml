@@ -1,33 +1,27 @@
 !!com.suiyueyule.abtest.config.ConfigManage
 abTestConfig:
   layers:
-    RECOMMEND:
+    RECOMMEND_ITEM:
       bucketList:
       - bucketList: !!set {0: null}
-        paramList: {RECOMMEND_2008_01: '000000', RECOMMEND_2008_02: '000001'}
-        plan: '2008'
+        paramList: {RECOMMEND_2008_01: '000000'}
+        plan: '201806A'
+        classTag: 'com.suiyueyule.abtest.algorithm.impl.CFRecommendItemServiceImpl'
       - bucketList: !!set {1: null}
-        paramList: {RECOMMEND_2009_02: '000001', RECOMMEND_2009_01: '000000'}
-        plan: '2009'
+        paramList: {RECOMMEND_2009_02: '000001'}
+        plan: '201806B'
+        classTag: 'com.suiyueyule.abtest.algorithm.impl.DefaultRecommendItemServiceImpl'
       bucketSize: 2
-      factor: RECOMMEND
-    UI:
+      factor: RECOMMEND_ITEM
+    RECOMMEND_ITEM_RELEVANT:
       bucketList:
-      - bucketList: !!set {0: null, 1: null, 2: null}
-        paramList: {UI_2018_02: '000001', UI_2018_01: '000000'}
-        plan: '2018'
-      - bucketList: !!set {3: null, 4: null}
-        paramList: {UI_2017_02: '000001', UI_2017_01: '000000'}
-        plan: '2017'
-      bucketSize: 5
-      factor: UI
-    QUERY:
-      bucketList:
-      - bucketList: !!set {0: null, 1: null}
-        paramList: {QUERY_2010_02: '000001', QUERY_2010_01: '000000'}
-        plan: '2010'
-      - bucketList: !!set {2: null}
-        paramList: {QUERY_2019_01: '000000', QUERY_2019_02: '000001'}
-        plan: '2019'
-      bucketSize: 3
-      factor: QUERY
+      - bucketList: !!set {0: null}
+        paramList: {UI_2018_02: '000001'}
+        plan: '201806A'
+        classTag: 'com.suiyueyule.abtest.algorithm.impl.CFRecommendItemRelevantServiceImpl'
+      - bucketList: !!set {1: null}
+        paramList: {UI_2017_02: '000001'}
+        plan: '201806B'
+        classTag: 'com.suiyueyule.abtest.algorithm.impl.DefaultRecommendItemRelevantServiceImpl'
+      bucketSize: 2
+      factor: RECOMMEND_ITEM_RELEVANT

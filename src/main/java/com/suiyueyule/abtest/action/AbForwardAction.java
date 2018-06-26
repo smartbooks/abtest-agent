@@ -3,14 +3,13 @@ package com.suiyueyule.abtest.action;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.suiyueyule.abtest.algorithm.BaseService;
-import com.suiyueyule.abtest.algorithm.impl.DefaultServiceImpl;
+import com.suiyueyule.abtest.algorithm.impl.DefaultRecommendItemServiceImpl;
 import com.suiyueyule.abtest.core.*;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class AbForwardAction extends ActionSupport {
 
@@ -24,7 +23,7 @@ public class AbForwardAction extends ActionSupport {
     }
 
     private Map<String, Object> jsonData;
-    
+
     public String hi() {
 
         jsonData = new HashMap<>();
@@ -65,7 +64,7 @@ public class AbForwardAction extends ActionSupport {
         //模型内聚封装
         {
             //模型服务
-            BaseService modelService = new DefaultServiceImpl();
+            BaseService modelService = new DefaultRecommendItemServiceImpl();
 
             modelService.init();
             //modelService.destroy();
@@ -105,6 +104,7 @@ public class AbForwardAction extends ActionSupport {
 
         return Action.SUCCESS;
     }
+
 
     public static ExperimentConfiguration genericExperimentConfiguration() {
         ExperimentConfiguration conf = new ExperimentConfiguration();

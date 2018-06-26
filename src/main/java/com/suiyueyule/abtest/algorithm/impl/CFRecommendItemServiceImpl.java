@@ -7,13 +7,17 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
-public class DefaultServiceImpl implements BaseService {
+/**
+ * 推荐用户喜欢的物品列表-协同过滤版本
+ */
+public class CFRecommendItemServiceImpl implements BaseService {
 
-    private final static Logger logger = LogManager.getLogger(DefaultServiceImpl.class);
+    private final static Logger logger = LogManager.getLogger(CFRecommendItemServiceImpl.class);
 
     @Override
     public String getModelId() {
-        return "cfcd208495d565ef66e7dff9f98764da";
+        //明文100
+        return "F899139DF5E1059396431415E770C6DD";
     }
 
     @Override
@@ -23,7 +27,7 @@ public class DefaultServiceImpl implements BaseService {
 
     @Override
     public String getModelTag() {
-        return "cainixihuan";
+        return "RECOMMEND_ITEM_CNXH_CF";
     }
 
     @Override

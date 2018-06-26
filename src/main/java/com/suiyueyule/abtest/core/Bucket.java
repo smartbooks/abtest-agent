@@ -11,4 +11,6 @@ public class Bucket {
     public HashSet<Long> bucketList = new HashSet<>();
 
     public String plan;
+
+    public String classTag;
 }

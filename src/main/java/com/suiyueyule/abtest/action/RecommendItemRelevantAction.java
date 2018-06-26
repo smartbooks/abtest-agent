@@ -1,9 +1,10 @@
 package com.suiyueyule.abtest.action;
 
+
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.suiyueyule.abtest.algorithm.BaseService;
-import com.suiyueyule.abtest.algorithm.impl.DefaultServiceImpl;
+import com.suiyueyule.abtest.algorithm.impl.DefaultRecommendItemRelevantServiceImpl;
 import com.suiyueyule.abtest.core.ABTestFactor;
 import com.suiyueyule.abtest.core.ABTestManager;
 import org.apache.logging.log4j.LogManager;
@@ -15,17 +16,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 猜你喜欢
- * 基于个人偏好的个性化推荐列表
+ * 推荐用户喜欢的物品的相关物品列表
  */
-public class RecommendProfileAction extends ActionSupport {
+public class RecommendItemRelevantAction extends ActionSupport {
 
-    private final static Logger logger = LogManager.getLogger(RecommendProfileAction.class);
+    private final static Logger logger = LogManager.getLogger(RecommendItemRelevantAction.class);
 
     /**
      * ab分流实验所在的层
      */
-    private final static String layoutName = "RECOMMEND";
+    private final static String layoutName = "RECOMMEND_ITEM_RELEVANT";
 
     /**
      * 请求参数推荐用户键名
@@ -33,9 +33,19 @@ public class RecommendProfileAction extends ActionSupport {
     private final static String regUidKey = "reg_uid";
 
     /**
+     * 请求参数相似物品ID
+     */
+    private final static String itemIdKey = "item_id";
+
+    /**
      * 请求参数返回条数键名
      */
     private final static String pageSizeKey = "page_size";
+
+    /**
+     * 默认返回条数
+     */
+    private final static Integer defaultPageSize = 5;
 
     /**
      * 返回结果
@@ -50,12 +60,7 @@ public class RecommendProfileAction extends ActionSupport {
         this.jsonData = jsonData;
     }
 
-    /**
-     * 返回指定用户的推荐物品列表
-     *
-     * @return
-     */
-    public String item() {
+    public String itemRelevant() {
 
         jsonData = new HashMap<>();
 
@@ -70,15 +75,18 @@ public class RecommendProfileAction extends ActionSupport {
                 //ab测试分流洗牌
                 ABTestFactor.ABTestResult layerShuffle = ABTestManager.instance().run((Long) param.get(regUidKey), layoutName);
 
+                //实例化模型服务接口
+                BaseService modelService;
+
                 //没有匹配的分流策略
                 if (null != layerShuffle) {
                     //与请求分数map合并
                     param.putAll(layerShuffle.getParam());
+                    modelService = new DefaultRecommendItemRelevantServiceImpl();
+                } else {
+                    modelService = (BaseService) Class.forName(layerShuffle.getClassTag()).newInstance();
                 }
-
-                //实例化模型服务接口
-                BaseService modelService = new DefaultServiceImpl();
-
+                
                 //向用户推荐物品列表
                 Object itemData = modelService.predict(param);
 
@@ -137,11 +145,15 @@ public class RecommendProfileAction extends ActionSupport {
      */
     private Boolean validateRequestParam(Map<String, Object> param) {
 
-        if (param.containsKey(regUidKey) && (Long) param.get(regUidKey) > 0) {
-            return true;
+        if (param.containsKey(regUidKey) == false || (Long) param.get(regUidKey) <= 0) {
+            return false;
         }
 
-        return false;
+        if (param.containsKey(itemIdKey) == false || (Long) param.get(itemIdKey) <= 0) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -155,8 +167,7 @@ public class RecommendProfileAction extends ActionSupport {
 
         String pamRegUid = request.getParameter(regUidKey);
         String pamPageSize = request.getParameter(pageSizeKey);
-        //String pamGuestUid = request.getParameter("guest_uid");
-        //String pamDeviceId = request.getParameter("device_id");
+        String pamItemId = request.getParameter(itemIdKey);
 
         Map<String, Object> param = new HashMap<>();
 
@@ -165,11 +176,16 @@ public class RecommendProfileAction extends ActionSupport {
             param.put(regUidKey, Long.valueOf(pamRegUid.trim()));
         }
 
+        //相似物品ID
+        if (null != pamItemId && pamItemId.isEmpty() == false) {
+            param.put(itemIdKey, Long.valueOf(pamItemId.trim()));
+        }
+
         //返回条数
         if (null != pamPageSize && pamPageSize.length() > 0) {
             param.put(pageSizeKey, Integer.valueOf(pamPageSize.trim()));
         } else {
-            param.put(pageSizeKey, 5);
+            param.put(pageSizeKey, defaultPageSize);
         }
 
         return param;

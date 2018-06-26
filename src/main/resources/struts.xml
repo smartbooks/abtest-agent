@@ -13,8 +13,15 @@
     </package>
 
     <package name="pkg-server-json" extends="json-default">
-        <!--向用户推荐物品列表-->
-        <action name="item" class="com.suiyueyule.abtest.action.RecommendProfileAction" method="item">
+        <!--推荐用户喜欢的物品列表-->
+        <action name="item" class="com.suiyueyule.abtest.action.RecommendItemAction" method="item">
+            <result name="success" type="json">
+                <param name="root">jsonData</param>
+            </result>
+        </action>
+
+        <!--推荐用户喜欢的物品的相关物品列表-->
+        <action name="itemRelevant" class="com.suiyueyule.abtest.action.RecommendItemRelevantAction" method="itemRelevant">
             <result name="success" type="json">
                 <param name="root">jsonData</param>
             </result>
