@@ -35,7 +35,7 @@ public class ConfigManage {
         if (null == RECOMMEND_CONF_DIR || RECOMMEND_CONF_DIR.equals(StringUtils.STRING_EMPTY)) {
             RECOMMEND_CONF_DIR = System.getProperty("user.dir");
         }
-        filename = String.format("%sdefault.yaml", RECOMMEND_CONF_DIR);
+        filename = String.format("%s/default.yaml", RECOMMEND_CONF_DIR);
     }
 
     /**

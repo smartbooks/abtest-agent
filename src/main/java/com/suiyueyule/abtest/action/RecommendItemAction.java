@@ -78,7 +78,7 @@ public class RecommendItemAction extends ActionSupport {
                 BaseService modelService;
 
                 //没有匹配的分流策略
-                if (null != layerShuffle) {
+                if (null == layerShuffle) {
                     //与请求分数map合并
                     param.putAll(layerShuffle.getParam());
                     modelService = new DefaultRecommendItemServiceImpl();

@@ -79,14 +79,14 @@ public class RecommendItemRelevantAction extends ActionSupport {
                 BaseService modelService;
 
                 //没有匹配的分流策略
-                if (null != layerShuffle) {
+                if (null == layerShuffle) {
                     //与请求分数map合并
                     param.putAll(layerShuffle.getParam());
                     modelService = new DefaultRecommendItemRelevantServiceImpl();
                 } else {
                     modelService = (BaseService) Class.forName(layerShuffle.getClassTag()).newInstance();
                 }
-                
+
                 //向用户推荐物品列表
                 Object itemData = modelService.predict(param);
 
