@@ -1,5 +1,6 @@
 package com.suiyueyule.abtest.config;
 
+import com.suiyueyule.abtest.cache.RedisConfig;
 import com.suiyueyule.abtest.core.ExperimentConfiguration;
 import com.suiyueyule.abtest.util.FileUtils;
 import com.suiyueyule.abtest.util.StringUtils;
@@ -96,6 +97,11 @@ public class ConfigManage {
      * AB分流测试配置
      */
     public ExperimentConfiguration abTestConfig = null;
+
+    /**
+     * Redis用户推荐缓存
+     */
+    public RedisConfig recommendRedisConfig = null;
 
     //其他配置在此处继续添加
 

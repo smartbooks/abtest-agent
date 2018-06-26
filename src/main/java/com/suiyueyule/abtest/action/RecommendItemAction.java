@@ -29,12 +29,12 @@ public class RecommendItemAction extends ActionSupport {
     /**
      * 请求参数推荐用户键名
      */
-    private final static String regUidKey = "reg_uid";
+    public final static String regUidKey = "reg_uid";
 
     /**
      * 请求参数返回条数键名
      */
-    private final static String pageSizeKey = "page_size";
+    public final static String pageSizeKey = "page_size";
 
     /**
      * 默认返回条数
